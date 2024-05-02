@@ -24,8 +24,6 @@ async function updateStreakUser() {
 
   const userIdsToUpdate = usersToUpdate.map((user) => user.id);
 
-  console.log(userIdsToUpdate);
-
   await prisma.user.updateMany({
     where: {
       id: {
