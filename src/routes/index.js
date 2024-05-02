@@ -8,9 +8,9 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-// router.get('/teste1', updateStreakUser);
+router.get('/teste1', updateStreakUser);
 
-// router.get('/teste2', sendNotification);
+router.get('/teste2', sendNotification);
 
 
 module.exports = router;
