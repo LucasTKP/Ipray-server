@@ -3,10 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build": "prisma generate",
-    "start": "prisma generate && node ./bin/www",
-    "dev": "nodemon ./bin/www",
-    "postinstall": "prisma generate"
+    "start": "node ./bin/www",
+    "dev": "nodemon ./bin/www"
   },
   "dependencies": {
     "@prisma/client": "^5.13.0",
