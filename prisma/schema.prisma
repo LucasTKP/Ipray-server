@@ -1,0 +1,39 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id             Int       @id @default(autoincrement())
+  name           String    @db.VarChar(255)
+  email          String    @unique @db.VarChar(255)
+  age            Int
+  state          String    @db.VarChar(255)
+  city           String    @db.VarChar(255)
+  url_image      String    @db.VarChar(255)
+  total          Int
+  streak         Int
+  created_date   DateTime  @db.Timestamp(6)
+  device_token   String?   @db.VarChar(255)
+  date_last_pray DateTime? @db.Timestamp(6)
+  praies         Pray[]
+}
+
+model Pray {
+  id      Int      @id(map: "pray_pkey") @default(autoincrement())
+  id_user Int
+  date    DateTime @db.Timestamp(6)
+  user    User     @relation(fields: [id_user], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "pray_id_user_fkey")
+}
+
+model App {
+  id         BigInt   @id(map: "app_pkey") @default(autoincrement())
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+  version    String   @db.VarChar(255)
+  note       String
+}
