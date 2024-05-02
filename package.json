@@ -3,9 +3,10 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build": "prisma generate",
-    "start": "node ./bin/www",
-    "dev": "nodemon ./bin/www"
+    "build": "npx prisma generate",
+    "start": "npx prisma generate && node ./bin/www",
+    "dev": "nodemon ./bin/www",
+    "postinstall": "npx prisma generate"
   },
   "dependencies": {
     "@prisma/client": "^5.13.0",
