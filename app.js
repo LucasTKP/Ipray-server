@@ -4,8 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var indexRouter = require('./src/routes/index');
 
 var app = express();
 
@@ -20,7 +19,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -37,5 +35,24 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+var updateStreakUser = require("./src/schedule/updateStreakUser");
+var sendNotification = require("./src/schedule/sendNotification");
+var schedule = require("node-schedule");
+var moment = require("moment-timezone");
+
+moment.tz.setDefault("America/Sao_Paulo");
+
+const rule = new schedule.RecurrenceRule();
+rule.hour = 6;
+rule.minute = 0;
+
+const job = schedule.scheduleJob(rule, updateStreakUser);
+
+const rule2 = new schedule.RecurrenceRule();
+rule2.hour = 19;
+rule2.minute = 0;
+
+const job2 = schedule.scheduleJob(rule2, sendNotification);
 
 module.exports = app;
